@@ -1,27 +1,112 @@
-# ComerciantesApp
+# ComerciantesApp — Frontend Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+Aplicación web desarrollada en **Angular 18** con **Clean Architecture** para la gestión de comerciantes y establecimientos de la Agremiación Nacional de Comercio.
 
-## Development server
+## 🏗️ Arquitectura
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```
+comerciantes-app/
+├── src/
+│   └── app/
+│       ├── core/                    # Guards, interceptores, servicios singleton
+│       │   ├── guards/              # auth.guard.ts — protección de rutas
+│       │   ├── interceptors/        # auth.interceptor.ts — JWT en headers
+│       │   └── services/            # auth.service.ts, merchants.service.ts
+│       ├── shared/                  # Componentes, pipes y directivas reutilizables
+│       ├── features/                # Módulos de funcionalidad
+│       │   ├── auth/                # Módulo de autenticación (Login)
+│       │   └── merchants/           # Módulo de comerciantes (Home + Formulario)
+│       └── store/                   # Estado global NgRx
+```
 
-## Code scaffolding
+## 🚀 Páginas implementadas
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+| Reto | Página | Ruta | Auth |
+|------|--------|------|------|
+| 09 | Login | `/login` | ❌ Público |
+| 10 | Home — Lista Comerciantes | `/merchants` | ✅ JWT |
+| 11 | Formulario Crear/Editar | `/merchants/new` `/merchants/:id` | ✅ JWT |
 
-## Build
+## 🔐 Seguridad (OWASP)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- JWT almacenado en memoria vía NgRx (no localStorage)
+- Interceptor HTTP agrega el token automáticamente en cada request
+- Guards protegen todas las rutas privadas
+- Sanitización de inputs por defecto con Angular
+- Manejo de errores 401/403 con redirección automática al login
 
-## Running unit tests
+## ⚙️ Stack Tecnológico
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Angular 18** — Framework principal (Standalone Components)
+- **NgRx 18** — Gestión de estado global (Store + Effects)
+- **Angular Material 18** — Componentes UI (tema Azure/Blue)
+- **TypeScript** — Tipado estático
+- **SCSS** — Estilos
 
-## Running end-to-end tests
+## 🔧 Requisitos previos
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- Node.js 22+
+- npm 11+
+- Angular CLI 18+
+- Backend API corriendo en `http://localhost:8080`
 
-## Further help
+## 🚀 Instalación y ejecución
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+# Clonar el repositorio
+git clone https://github.com/Jdescobar10/comerciantes-app.git
+cd comerciantes-app
+
+# Instalar dependencias
+npm install
+
+# Ejecutar en desarrollo
+ng serve
+
+# La app estará disponible en: http://localhost:4200
+```
+
+## 🏗️ Build para producción
+
+```bash
+ng build --configuration production
+```
+
+El compilado se genera en la carpeta `dist/comerciantes-app`.
+
+## 🧪 Ejecutar pruebas unitarias
+
+```bash
+ng test
+```
+
+## 🔗 Backend API
+
+Este frontend consume la API REST desarrollada en .NET 8.
+**Base URL:** `http://localhost:8080`
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| POST | `/api/auth/login` | Autenticación JWT |
+| GET | `/api/municipios` | Lista de municipios |
+| GET | `/api/comerciantes` | Lista paginada de comerciantes |
+| GET | `/api/comerciantes/{id}` | Detalle de comerciante |
+| POST | `/api/comerciantes` | Crear comerciante |
+| PUT | `/api/comerciantes/{id}` | Actualizar comerciante |
+| DELETE | `/api/comerciantes/{id}` | Eliminar (solo Administrador) |
+| PATCH | `/api/comerciantes/{id}/estado` | Activar/Inactivar |
+| GET | `/api/reporte/comerciantes/csv` | Reporte CSV (solo Administrador) |
+
+## 👤 Usuarios de prueba
+
+| Correo | Contraseña | Rol |
+|--------|-----------|-----|
+| admin@agremiacion.com | Admin$2026! | Administrador |
+| auxiliar@agremiacion.com | Aux1liar#2026 | Auxiliar de Registro |
+
+## 📁 Rama de desarrollo
+
+| Rama | Propósito |
+|------|-----------|
+| `main` | Código estable — producción |
+| `develop` | Rama principal de desarrollo |
