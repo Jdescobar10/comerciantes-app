@@ -42,9 +42,10 @@ export class LoginComponent {
   });
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      this.store.dispatch(loadAuth());
-    }
+  if (this.loginForm.valid) {
+    const { email, password } = this.loginForm.value;
+    this.store.dispatch(loadAuth({ email, password }));
   }
+}
+
 }
