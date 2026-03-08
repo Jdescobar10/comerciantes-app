@@ -19,9 +19,9 @@ export class AuthEffects {
         this.authService.login(email, password).pipe(
           map((response) => loadAuthSuccess({
             user: {
-              nombre: response.nombre,
-              correo: response.correo,
-              rol: response.rol
+              nombre: response.data.nombreUsuario,
+              correo: email,
+              rol: response.data.rol
             },
             token: response.token
           })),
