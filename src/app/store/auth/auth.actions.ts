@@ -1,7 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from './auth.state';
 
-export const loadAuth = createAction('[Auth] Load Auth');
+export const loadAuth = createAction(
+  '[Auth] Load Auth',
+  props<{ email: string; password: string }>()
+);
 
 export const loadAuthSuccess = createAction(
   '[Auth] Load Auth Success',

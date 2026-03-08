@@ -1,1 +1,61 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-background"></div>
+
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Debes iniciar sesión para acceder a la plataforma</h2>
+      <p>Digita tu correo electrónico y contraseña</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo Electrónico</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="correo@ejemplo.com">
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+          El correo es requerido
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+          Ingresa un correo válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput formControlName="password"
+               [type]="hidePassword ? 'password' : 'text'">
+        <button mat-icon-button matSuffix type="button"
+                (click)="hidePassword = !hidePassword">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+          La contraseña es requerida
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+          Mínimo 6 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="terms" class="terms-checkbox">
+        Acepto términos y condiciones
+      </mat-checkbox>
+      <div class="terms-error"
+           *ngIf="loginForm.get('terms')?.invalid && loginForm.get('terms')?.touched">
+        Debes aceptar los términos y condiciones
+      </div>
+
+      <div class="error-message" *ngIf="error$ | async as error">
+        {{ error }}
+      </div>
+
+      <button mat-raised-button color="primary" type="submit"
+              class="submit-button"
+              [disabled]="loginForm.invalid || (loading$ | async)">
+        <mat-spinner diameter="20" *ngIf="loading$ | async"></mat-spinner>
+        <span *ngIf="!(loading$ | async)">Iniciar sesión</span>
+      </button>
+
+    </form>
+  </div>
+</div>
