@@ -1,10 +1,16 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
+import { User } from './auth.state';
 
-export const AuthActions = createActionGroup({
-  source: 'Auth',
-  events: {
-    'Load Auths': emptyProps(),
-    'Load Auths Success': props<{ data: unknown }>(),
-    'Load Auths Failure': props<{ error: unknown }>(),
-  }
-});
+export const loadAuth = createAction('[Auth] Load Auth');
+
+export const loadAuthSuccess = createAction(
+  '[Auth] Load Auth Success',
+  props<{ user: User; token: string }>()
+);
+
+export const loadAuthFailure = createAction(
+  '[Auth] Load Auth Failure',
+  props<{ error: string }>()
+);
+
+export const logout = createAction('[Auth] Logout');

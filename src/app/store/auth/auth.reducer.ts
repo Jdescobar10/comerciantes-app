@@ -1,17 +1,33 @@
+
+
 import { createReducer, on } from '@ngrx/store';
-import { AuthActions } from './auth.actions';
+import { initialAuthState } from './auth.state';
+import { loadAuth, loadAuthSuccess, loadAuthFailure, logout } from './auth.actions';
 
-export const authFeatureKey = 'auth';
-
-export interface State {
-
-}
-
-export const initialState: State = {
-
-};
-
-export const reducer = createReducer(
-  initialState,
+export const authReducer = createReducer(
+  initialAuthState,
+  on(loadAuth, (state) => ({
+    ...state,
+    loading: true,
+    error: null
+  })),
+  on(loadAuthSuccess, (state, { user, token }) => ({
+    ...state,
+    isAuthenticated: true,
+    user,
+    token,
+    loading: false,
+    error: null
+  })),
+  on(loadAuthFailure, (state, { error }) => ({
+    ...state,
+    isAuthenticated: false,
+    user: null,
+    token: null,
+    loading: false,
+    error
+  })),
+  on(logout, (state) => ({
+    ...initialAuthState
+  }))
 );
-
