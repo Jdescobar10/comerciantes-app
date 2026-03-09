@@ -1,0 +1,166 @@
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="logo-ol.png" alt="OL Software" class="logo">
+  </div>
+
+  <div class="navbar-center">
+    <a class="nav-link" routerLink="/merchants">
+      <span class="nav-number">1</span>
+      Lista Formulario
+    </a>
+    <div class="nav-divider"></div>
+    <a class="nav-link active" [routerLink]="isEditMode ? '/merchants/edit/' + comercianteId : '/merchants/new'">
+      <span class="nav-number active-num">2</span>
+      {{ isEditMode ? 'Editar Comerciante' : 'Crear Formulario' }}
+    </a>
+  </div>
+
+  <div class="navbar-right">
+    <span class="benefits">
+      <mat-icon>thumb_up</mat-icon>
+      Beneficios por renovar
+    </span>
+    <div class="user-info" *ngIf="user$ | async as user">
+      <mat-icon>account_circle</mat-icon>
+      <div class="user-details">
+        <span class="user-welcome">Bienvenido!</span>
+        <span class="user-name">{{ user.nombre }}</span>
+        <span class="user-role">{{ user.rol }}</span>
+      </div>
+    </div>
+    <button mat-icon-button (click)="logout()" matTooltip="Cerrar sesión">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="form-container">
+
+  <h2 class="page-main-title">
+    {{ isEditMode ? 'Empresa ' + comercianteId : 'Nuevo Comerciante' }}
+  </h2>
+
+  <!-- LOADING -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="48"></mat-spinner>
+    <p>Cargando datos...</p>
+  </div>
+
+  <div class="form-card" *ngIf="!loading">
+
+    <!-- ERROR GLOBAL -->
+    <div class="error-message" *ngIf="error">
+      <mat-icon>error_outline</mat-icon>
+      {{ error }}
+    </div>
+
+    <form [formGroup]="comercianteForm" (ngSubmit)="onSubmit()">
+
+      <div class="section-label">Datos Generales</div>
+
+      <!-- FILA 1: Nombre | Correo -->
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Razón Social <span class="required-mark">*</span></mat-label>
+          <input matInput formControlName="nombreRazonSocial" placeholder="Nombre o Razón Social">
+          <mat-error>{{ getFieldError('nombreRazonSocial') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput formControlName="correoElectronico" type="email" placeholder="correo@ejemplo.com">
+          <mat-error>{{ getFieldError('correoElectronico') }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- FILA 2: Departamento/Municipio | Fecha de registro -->
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Municipio <span class="required-mark">*</span></mat-label>
+          <mat-select formControlName="municipioId">
+            <mat-option *ngFor="let m of municipios" [value]="m.municipioId">
+              {{ m.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error>{{ getFieldError('municipioId') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Fecha de registro <span class="required-mark">*</span></mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fechaRegistro"
+                 [max]="maxDate" placeholder="DD/MM/AAAA">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>{{ getFieldError('fechaRegistro') }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- FILA 3: Teléfono | Estado | Posee establecimientos -->
+      <div class="form-row form-row-3">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Teléfono</mat-label>
+          <input matInput formControlName="telefono" placeholder="+57 000 000 0000">
+          <mat-error>{{ getFieldError('telefono') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Estado <span class="required-mark">*</span></mat-label>
+          <mat-select formControlName="estadoId">
+            <mat-option *ngFor="let e of estados" [value]="e.id">
+              {{ e.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-error>{{ getFieldError('estadoId') }}</mat-error>
+        </mat-form-field>
+
+        <div class="checkbox-wrapper">
+          <mat-checkbox formControlName="poseeEstablecimientos" color="primary">
+            ¿Posee establecimientos?
+          </mat-checkbox>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER (visible solo en modo edición) -->
+<div class="form-footer" *ngIf="isEditMode && !loading">
+  <div class="footer-info">
+    <div class="footer-item">
+      <span class="footer-label">Total Ingresos Formulario:</span>
+      <span class="footer-value">{{ totalIngresos | currency:'USD':'symbol':'1.0-0' }}</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">Cantidad de empleados:</span>
+      <span class="footer-value">{{ cantidadEmpleados }}</span>
+    </div>
+  </div>
+  <div class="footer-actions">
+    <span class="footer-hint">Si ya ingresaste todos los datos, crea tu formulario aquí</span>
+    <button mat-stroked-button type="button" routerLink="/merchants" class="btn-cancel">
+      Cancelar
+    </button>
+    <button mat-raised-button type="button" class="btn-save"
+            [disabled]="comercianteForm.invalid || saving"
+            (click)="onSubmit()">
+      <mat-spinner diameter="18" *ngIf="saving"></mat-spinner>
+      <span *ngIf="!saving">Enviar Formulario</span>
+    </button>
+  </div>
+</div>
+
+<!-- ACCIONES solo en modo creación -->
+<div class="form-actions-bar" *ngIf="!isEditMode && !loading">
+  <button mat-stroked-button type="button" routerLink="/merchants" class="btn-cancel">
+    Cancelar
+  </button>
+  <button mat-raised-button type="button" class="btn-save"
+          [disabled]="comercianteForm.invalid || saving"
+          (click)="onSubmit()">
+    <mat-spinner diameter="18" *ngIf="saving"></mat-spinner>
+    <span *ngIf="!saving">Guardar</span>
+  </button>
+</div>
