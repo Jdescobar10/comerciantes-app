@@ -7,21 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:       #0b0f1a;
-    --panel:    #111827;
-    --border:   #1e2d45;
-    --accent1:  #00d4ff;
-    --accent2:  #7c3aed;
-    --accent3:  #10b981;
-    --accent4:  #f59e0b;
-    --accent5:  #ef4444;
-    --accent6:  #ec4899;
-    --text:     #e2e8f0;
-    --muted:    #64748b;
+    --bg:      #0b0f1a;
+    --panel:   #111827;
+    --border:  #1e2d45;
+    --accent1: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --accent4: #f59e0b;
+    --accent5: #ef4444;
+    --accent6: #ec4899;
+    --text:    #e2e8f0;
+    --muted:   #64748b;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { margin:0; padding:0; box-sizing:border-box; }
   body {
     background: var(--bg);
     font-family: 'JetBrains Mono', monospace;
@@ -29,333 +27,528 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
   body::before {
-    content: '';
-    position: fixed; inset: 0; z-index: 0;
+    content:'';
+    position:fixed; inset:0; z-index:0;
     background-image:
       linear-gradient(rgba(0,212,255,.04) 1px, transparent 1px),
       linear-gradient(90deg, rgba(0,212,255,.04) 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
   }
-
   header {
-    position: relative; z-index: 10;
+    position:relative; z-index:10;
     padding: 0 48px;
     border-bottom: 1px solid var(--border);
     background: linear-gradient(135deg, #0b0f1a 0%, #111827 100%);
   }
-
-  .header-top {
-    padding: 28px 0 20px;
-    text-align: center;
-  }
-
+  .header-top { padding:28px 0 20px; text-align:center; }
   .header-top .title-main {
-    font-family: 'Syne', sans-serif;
-    font-size: 48px; font-weight: 800;
-    color: #dd0031;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    line-height: 1.1;
+    font-family:'Syne',sans-serif;
+    font-size:48px; font-weight:800;
+    color:#dd0031; letter-spacing:2px;
+    text-transform:uppercase; line-height:1.1;
   }
-
   .header-top .title-sub {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px; font-weight: 700;
-    color: var(--text);
-    letter-spacing: 6px;
-    margin-top: 4px;
+    font-family:'Syne',sans-serif;
+    font-size:22px; font-weight:700;
+    color:var(--text); letter-spacing:6px; margin-top:4px;
   }
-
   .subtitle-bar {
-    position: relative; z-index: 10;
-    padding: 14px 48px;
-    background: rgba(0,212,255,.04);
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; gap: 12px;
-    font-size: 12px; color: var(--muted);
-    flex-wrap: wrap;
+    position:relative; z-index:10;
+    padding:14px 48px;
+    background:rgba(0,212,255,.04);
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:12px;
+    font-size:12px; color:var(--muted); flex-wrap:wrap;
   }
-
-  .subtitle-bar .name  { color: var(--accent1); font-weight: 700; font-size: 14px; font-family: 'Syne', sans-serif; }
-  .subtitle-bar .tag {
-    padding: 2px 10px;
-    background: rgba(0,212,255,.08);
-    border: 1px solid rgba(0,212,255,.2);
-    border-radius: 4px;
-    font-size: 10px; color: var(--accent1);
-    letter-spacing: 1px;
+  .subtitle-bar .name  { color:var(--accent1); font-weight:700; font-size:14px; font-family:'Syne',sans-serif; }
+  .tag {
+    padding:2px 10px;
+    border-radius:4px; font-size:10px; letter-spacing:1px;
+    border:1px solid;
   }
-  .subtitle-bar .tag-red {
-    padding: 2px 10px;
-    background: rgba(221,0,49,.08);
-    border: 1px solid rgba(221,0,49,.25);
-    border-radius: 4px;
-    font-size: 10px; color: #ff6b8a;
-    letter-spacing: 1px;
-  }
-  .subtitle-bar .tag-green {
-    padding: 2px 10px;
-    background: rgba(16,185,129,.08);
-    border: 1px solid rgba(16,185,129,.25);
-    border-radius: 4px;
-    font-size: 10px; color: #10b981;
-    letter-spacing: 1px;
-  }
-
+  .tag-blue   { background:rgba(0,212,255,.08);   border-color:rgba(0,212,255,.2);   color:#00d4ff; }
+  .tag-red    { background:rgba(221,0,49,.08);    border-color:rgba(221,0,49,.25);   color:#ff6b8a; }
+  .tag-green  { background:rgba(16,185,129,.08);  border-color:rgba(16,185,129,.25); color:#10b981; }
+  .tag-yellow { background:rgba(245,158,11,.08);  border-color:rgba(245,158,11,.25); color:#f59e0b; }
+  .tag-pink   { background:rgba(236,72,153,.08);  border-color:rgba(236,72,153,.25); color:#ec4899; }
   .section {
-    position: relative; z-index: 10;
-    margin: 24px 32px;
-    padding: 18px 24px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: var(--panel);
+    position:relative; z-index:10;
+    margin:24px 32px; padding:18px 24px;
+    border:1px solid var(--border); border-radius:12px;
+    background:var(--panel);
   }
-
   .section-title {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 18px;
+    display:flex; align-items:center; gap:10px; margin-bottom:18px;
   }
-
-  .section-title span.icon { font-size: 18px; }
-
+  .section-title .icon { font-size:18px; }
   .section-title .text {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px; font-weight: 800;
-    color: #fff; letter-spacing: 0.5px;
+    font-family:'Syne',sans-serif;
+    font-size:14px; font-weight:800; color:#fff; letter-spacing:0.5px;
+  }
+  .badge-sm {
+    padding:2px 10px; border-radius:4px;
+    font-size:10px; font-family:'JetBrains Mono',monospace; letter-spacing:1px;
   }
 
-  .section-title .badge-sm {
-    padding: 2px 10px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 1px;
+  /* RETOS GRID */
+  .retos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .reto-card {
+    border-radius:10px; border:1px solid; padding:16px;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .reto-header { display:flex; align-items:center; gap:10px; }
+  .reto-num {
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Syne',sans-serif; font-size:14px; font-weight:800; flex-shrink:0;
+  }
+  .reto-title { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; }
+  .reto-route {
+    font-size:10px; padding:3px 8px; border-radius:4px;
+    border:1px solid; display:inline-block; margin-top:2px;
+  }
+  .reto-features { list-style:none; margin-top:8px; }
+  .reto-features li {
+    font-size:10px; color:#94a3b8; line-height:2;
+    padding-left:12px; position:relative;
+  }
+  .reto-features li::before { content:'›'; position:absolute; left:0; color:var(--accent1); }
+  .status-badge {
+    display:inline-flex; align-items:center; gap:4px;
+    padding:3px 10px; border-radius:20px;
+    font-size:10px; font-weight:700; margin-top:8px; align-self:flex-start;
   }
 
-  .arch-grid { display: flex; flex-direction: column; gap: 12px; }
+  /* DOWNLOAD BOX */
+  .download-box {
+    border-radius:12px; overflow:hidden;
+    border:1px solid rgba(16,185,129,.3);
+    background:rgba(16,185,129,.04);
+    margin-bottom:16px;
+  }
+  .download-box-head {
+    padding:12px 20px;
+    background:rgba(16,185,129,.1);
+    border-bottom:1px solid rgba(16,185,129,.2);
+    font-family:'Syne',sans-serif; font-weight:700; font-size:13px; color:#10b981;
+    display:flex; align-items:center; gap:8px;
+  }
+  .download-box-body { padding:16px 20px; }
+  .download-options { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:12px; }
+  .download-option {
+    padding:14px 16px; border-radius:8px;
+    border:1px solid rgba(0,212,255,.2);
+    background:rgba(0,212,255,.03);
+  }
+  .do-label { font-size:9px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:6px; }
+  .do-title { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:#00d4ff; margin-bottom:8px; }
+  .do-steps { list-style:none; }
+  .do-steps li { font-size:10px; color:#94a3b8; line-height:1.9; padding-left:12px; position:relative; }
+  .do-steps li::before { content:'▸'; position:absolute; left:0; color:var(--accent1); font-size:9px; }
+  .code-block {
+    background:rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.06);
+    border-radius:6px; padding:10px 14px; margin-top:10px;
+    font-size:11px; color:#00d4ff; line-height:1.9;
+    white-space:pre;
+  }
+  .repo-link {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:8px 16px; border-radius:6px;
+    background:rgba(0,212,255,.1); border:1px solid rgba(0,212,255,.3);
+    color:#00d4ff; text-decoration:none;
+    font-size:12px; font-weight:700; margin-top:8px;
+    transition: background 0.2s;
+  }
+  .repo-link:hover { background:rgba(0,212,255,.2); }
 
-  .arch-layer { border-radius: 10px; overflow: hidden; border: 1px solid; }
-
+  /* ARCH */
+  .arch-grid { display:flex; flex-direction:column; gap:12px; }
+  .arch-layer { border-radius:10px; overflow:hidden; border:1px solid; }
   .arch-layer-head {
-    padding: 10px 18px;
-    display: flex; align-items: center; gap: 10px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700; font-size: 13px;
+    padding:10px 18px; display:flex; align-items:center; gap:10px;
+    font-family:'Syne',sans-serif; font-weight:700; font-size:13px;
   }
-
-  .arch-layer-body {
-    padding: 14px 18px;
-    font-size: 11px; line-height: 1.8;
-    color: #cbd5e1;
-  }
-
-  .arch-layer-body .files { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-
+  .arch-layer-body { padding:14px 18px; font-size:11px; line-height:1.8; color:#cbd5e1; }
+  .arch-layer-body .files { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
   .file-chip {
-    padding: 3px 10px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    border: 1px solid;
+    padding:3px 10px; border-radius:4px;
+    font-size:10px; font-family:'JetBrains Mono',monospace; border:1px solid;
   }
 
-  .endpoint-table { width: 100%; border-collapse: collapse; font-size: 11px; }
-
+  /* ENDPOINTS */
+  .endpoint-table { width:100%; border-collapse:collapse; font-size:11px; }
   .endpoint-table th {
-    padding: 8px 12px;
-    text-align: left;
-    font-family: 'Syne', sans-serif;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 1.5px;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-    text-transform: uppercase;
+    padding:8px 12px; text-align:left;
+    font-family:'Syne',sans-serif; font-size:10px; font-weight:700;
+    letter-spacing:1.5px; color:var(--muted);
+    border-bottom:1px solid var(--border); text-transform:uppercase;
   }
-
   .endpoint-table td {
-    padding: 9px 12px;
-    border-bottom: 1px solid rgba(30,45,69,.5);
-    vertical-align: middle;
+    padding:9px 12px; border-bottom:1px solid rgba(30,45,69,.5); vertical-align:middle;
   }
-
-  .endpoint-table tr:hover td { background: rgba(0,212,255,.03); }
-
+  .endpoint-table tr:hover td { background:rgba(0,212,255,.03); }
   .method {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 10px; font-weight: 700;
-    letter-spacing: 1px;
-    min-width: 52px; text-align: center;
+    display:inline-block; padding:2px 8px; border-radius:4px;
+    font-size:10px; font-weight:700; letter-spacing:1px;
+    min-width:52px; text-align:center;
   }
-  .method.get    { background: rgba(16,185,129,.15); color: #10b981; border: 1px solid rgba(16,185,129,.3); }
-  .method.post   { background: rgba(0,212,255,.12);  color: #00d4ff; border: 1px solid rgba(0,212,255,.25); }
-  .method.put    { background: rgba(245,158,11,.12); color: #f59e0b; border: 1px solid rgba(245,158,11,.25); }
-  .method.patch  { background: rgba(124,58,237,.12); color: #a78bfa; border: 1px solid rgba(124,58,237,.25); }
-  .method.delete { background: rgba(239,68,68,.12);  color: #ef4444; border: 1px solid rgba(239,68,68,.25); }
-
+  .get    { background:rgba(16,185,129,.15);  color:#10b981; border:1px solid rgba(16,185,129,.3); }
+  .post   { background:rgba(0,212,255,.12);   color:#00d4ff; border:1px solid rgba(0,212,255,.25); }
+  .put    { background:rgba(245,158,11,.12);  color:#f59e0b; border:1px solid rgba(245,158,11,.25); }
+  .patch  { background:rgba(124,58,237,.12);  color:#a78bfa; border:1px solid rgba(124,58,237,.25); }
+  .delete { background:rgba(239,68,68,.12);   color:#ef4444; border:1px solid rgba(239,68,68,.25); }
   .badge-auth {
-    display: inline-flex; align-items: center; gap: 5px;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 10px;
+    display:inline-flex; align-items:center; gap:5px;
+    padding:2px 8px; border-radius:4px; font-size:10px;
   }
-  .badge-auth.yes { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25); color: #10b981; }
-  .badge-auth.no  { background: rgba(100,116,139,.1); border: 1px solid rgba(100,116,139,.2); color: #94a3b8; }
-  .badge-auth.admin { background: rgba(239,68,68,.1); border: 1px solid rgba(239,68,68,.25); color: #ef4444; }
+  .auth-yes   { background:rgba(16,185,129,.1);  border:1px solid rgba(16,185,129,.25); color:#10b981; }
+  .auth-no    { background:rgba(100,116,139,.1); border:1px solid rgba(100,116,139,.2); color:#94a3b8; }
+  .auth-admin { background:rgba(239,68,68,.1);   border:1px solid rgba(239,68,68,.25);  color:#ef4444; }
+  .route-path { color:var(--accent1); font-family:'JetBrains Mono',monospace; }
 
-  .route-path { color: var(--accent1); font-family: 'JetBrains Mono', monospace; }
-
+  /* DETAIL BOX */
   .detail-box {
-    padding: 14px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,.02);
-    border-left: 4px solid;
+    padding:14px 16px; border-radius:8px;
+    border:1px solid var(--border); border-left-width:3px;
+  }
+  .db-label { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; margin-bottom:8px; }
+
+  /* TESTS */
+  .test-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  .test-card {
+    padding:12px 14px; border-radius:8px;
+    border:1px solid rgba(16,185,129,.2);
+    background:rgba(16,185,129,.04);
+  }
+  .test-card-head {
+    font-family:'Syne',sans-serif; font-size:11px; font-weight:700;
+    color:#10b981; margin-bottom:8px;
+  }
+  .test-case { font-size:10px; color:#94a3b8; line-height:1.8; padding-left:12px; position:relative; }
+  .test-case::before { content:'✓'; position:absolute; left:0; color:#10b981; }
+
+  /* COMMITS */
+  .commits-list { list-style:none; }
+  .commit-item {
+    display:flex; align-items:flex-start; gap:12px;
+    padding:10px 0; border-bottom:1px solid rgba(255,255,255,.04);
+  }
+  .commit-item:last-child { border-bottom:none; }
+  .commit-dot {
+    width:8px; height:8px; border-radius:50%;
+    flex-shrink:0; margin-top:4px;
+  }
+  .commit-msg { font-size:11px; color:#cbd5e1; line-height:1.6; }
+  .commit-type {
+    font-size:9px; padding:1px 6px; border-radius:3px;
+    font-weight:700; letter-spacing:0.5px; flex-shrink:0; margin-top:2px;
   }
 
-  .db-label {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px; font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-  }
-
-  .tech-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-  }
-
+  /* TECH GRID */
+  .tech-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
   .tech-card {
-    padding: 14px 16px;
-    border-radius: 8px;
-    border: 1px solid;
+    padding:14px 16px; border-radius:10px; border:1px solid;
+    display:flex; flex-direction:column; gap:4px;
   }
+  .tc-label { font-size:9px; letter-spacing:2px; color:var(--muted); font-weight:700; }
+  .tc-name  { font-family:'Syne',sans-serif; font-size:16px; font-weight:800; }
+  .tc-version { font-size:10px; color:var(--muted); margin-top:4px; }
 
-  .tc-label {
-    font-size: 9px; letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-
-  .tc-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 16px; font-weight: 800;
-    margin-bottom: 4px;
-  }
-
-  .tc-version {
-    font-size: 10px; color: var(--muted);
-    margin-top: 6px;
-  }
-
-  code {
-    background: rgba(0,212,255,.08);
-    border: 1px solid rgba(0,212,255,.15);
-    padding: 1px 6px;
-    border-radius: 3px;
-    font-size: 10px;
-    color: #93c5fd;
-  }
-
-  .spacer { height: 24px; }
-
-  .status-ok   { color: #10b981; }
-  .status-wip  { color: #f59e0b; }
+  .spacer { height:40px; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="header-top">
     <div class="title-main">Angular</div>
-    <div class="title-sub">COMERCIANTES APP — FRONTEND</div>
+    <div class="title-sub">COMERCIANTES APP</div>
   </div>
 </header>
 
 <div class="subtitle-bar">
-  <span class="name">ComerciantesApp</span>
-  <span style="color:#1e2d45;">|</span>
-  <span class="tag-red">ANGULAR 18</span>
-  <span class="tag">NGRX 18</span>
-  <span class="tag-green">STANDALONE COMPONENTS</span>
-  <span class="tag">ANGULAR MATERIAL</span>
-  <span style="color:#1e2d45;">|</span>
-  <span style="font-size:11px;">Prueba Técnica Fullstack — OL Software &amp; Development</span>
+  <span class="name">Prueba Técnica — OL Software &amp; Development</span>
+  <span class="tag tag-blue">Angular 18</span>
+  <span class="tag tag-blue">NgRx 18</span>
+  <span class="tag tag-blue">Angular Material</span>
+  <span class="tag tag-red">Standalone Components</span>
+  <span class="tag tag-green">JWT · OWASP</span>
+  <span class="tag tag-yellow">Retos 09 · 10 · 11 ✅ COMPLETOS</span>
+  <span class="tag tag-green">24 Jest Tests</span>
 </div>
 
-<div class="spacer"></div>
+<!-- ── SECCIÓN 0: ENTREGABLES ── -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">📦</span>
+    <span class="text">Entregables — Repositorio &amp; Compilado de Producción</span>
+    <span class="badge-sm" style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#10b981;">✅ LISTO PARA ENTREGA</span>
+  </div>
 
-<!-- SECCIÓN 1 — ARQUITECTURA -->
+  <!-- Repositorio -->
+  <div class="download-box">
+    <div class="download-box-head">
+      <span>🔗</span> Repositorio Público
+    </div>
+    <div class="download-box-body">
+      <div style="font-size:12px;color:#94a3b8;margin-bottom:8px;">
+        Código fuente completo disponible en GitHub — rama <code style="background:rgba(255,255,255,.06);padding:1px 6px;border-radius:3px;">develop</code> con todos los commits del desarrollo.
+      </div>
+      <a class="repo-link" href="https://github.com/Jdescobar10/comerciantes-app" target="_blank">
+        🐙 github.com/Jdescobar10/comerciantes-app
+      </a>
+    </div>
+  </div>
+
+  <!-- Compilado ZIP -->
+  <div class="download-box" style="border-color:rgba(0,212,255,.3);background:rgba(0,212,255,.03);margin-top:0;">
+    <div class="download-box-head" style="background:rgba(0,212,255,.1);border-color:rgba(0,212,255,.2);color:#00d4ff;">
+      <span>📁</span> Compilado de Producción
+    </div>
+    <div class="download-box-body">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div style="padding:10px 18px;border-radius:8px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.25);font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:#00d4ff;letter-spacing:0.5px;">
+          📦 comerciantes-app-production.zip
+        </div>
+        <div style="font-size:11px;color:#94a3b8;line-height:1.7;">
+          Ubicado en el <strong style="color:#e2e8f0;">raíz del repositorio</strong><br>
+          rama <code style="background:rgba(255,255,255,.06);padding:1px 6px;border-radius:3px;">develop</code>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#64748b;margin-bottom:10px;font-family:'Syne',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:1px;">Pasos para descargarlo:</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);font-size:11px;color:#94a3b8;line-height:1.9;">
+          <div style="color:#e2e8f0;font-weight:700;margin-bottom:6px;">① Descarga directa desde GitHub</div>
+          <div>1. Ir al repositorio en GitHub</div>
+          <div>2. Rama <code style="font-size:10px;background:rgba(255,255,255,.06);padding:1px 4px;border-radius:2px;">develop</code> → clic en <strong style="color:#e2e8f0;">comerciantes-app-production.zip</strong></div>
+          <div>3. Clic en <strong style="color:#00d4ff;">Download raw file ⬇</strong></div>
+        </div>
+        <div style="padding:12px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);font-size:11px;color:#94a3b8;line-height:1.9;">
+          <div style="color:#e2e8f0;font-weight:700;margin-bottom:6px;">② Clonar y encontrarlo en el raíz</div>
+          <div class="code-block" style="margin-top:4px;font-size:10px;">git clone https://github.com/
+  Jdescobar10/comerciantes-app.git
+
+# ZIP en la raíz del proyecto:
+comerciantes-app-production.zip</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;padding:12px 16px;border-radius:8px;background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);font-size:11px;color:#94a3b8;line-height:1.8;">
+    <span style="color:#f59e0b;font-weight:700;">⚠️ Requisito previo —</span>
+    El compilado requiere que el backend .NET 8 esté corriendo en
+    <code style="color:#00d4ff;background:rgba(0,212,255,.08);padding:1px 6px;border-radius:3px;">http://localhost:8080</code>
+    para funcionar correctamente.
+  </div>
+</div>
+
+<!-- ── SECCIÓN 1: RETOS ── -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🎯</span>
+    <span class="text">Retos Implementados</span>
+    <span class="badge-sm" style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#10b981;">3 / 3 COMPLETOS</span>
+  </div>
+
+  <div class="retos-grid">
+
+    <!-- RETO 09 -->
+    <div class="reto-card" style="border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.03);">
+      <div class="reto-header">
+        <div class="reto-num" style="background:rgba(0,212,255,.15);color:#00d4ff;">09</div>
+        <div>
+          <div class="reto-title" style="color:#00d4ff;">Login con JWT</div>
+          <span class="reto-route" style="color:#00d4ff;border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.05);">/login</span>
+        </div>
+      </div>
+      <ul class="reto-features">
+        <li>Correo, contraseña y checkbox términos y condiciones</li>
+        <li>Autenticación contra /api/auth/login</li>
+        <li>Token JWT en NgRx Store (no localStorage)</li>
+        <li>Header con nombre y rol del usuario tras login</li>
+        <li>Redirección automática al home</li>
+        <li>Mensaje de error en credenciales inválidas</li>
+      </ul>
+      <span class="status-badge" style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#10b981;">✅ Completado</span>
+    </div>
+
+    <!-- RETO 10 -->
+    <div class="reto-card" style="border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.03);">
+      <div class="reto-header">
+        <div class="reto-num" style="background:rgba(124,58,237,.15);color:#a78bfa;">10</div>
+        <div>
+          <div class="reto-title" style="color:#a78bfa;">Lista Comerciantes</div>
+          <span class="reto-route" style="color:#a78bfa;border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.05);">/merchants</span>
+        </div>
+      </div>
+      <ul class="reto-features">
+        <li>Navbar con nombre y rol del usuario</li>
+        <li>Tabla paginada (5, 10, 15 ítems)</li>
+        <li>Datos desde /api/Reporte/comerciantes</li>
+        <li>Acción Editar → formulario</li>
+        <li>Acción Activar/Inactivar (PATCH estado)</li>
+        <li>Acción Eliminar (solo Administrador)</li>
+        <li>Acción Descargar CSV individual</li>
+        <li>Botón Descargar CSV global (solo Admin)</li>
+        <li>Botón Nuevo Comerciante</li>
+        <li>Cerrar sesión</li>
+      </ul>
+      <span class="status-badge" style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#10b981;">✅ Completado</span>
+    </div>
+
+    <!-- RETO 11 -->
+    <div class="reto-card" style="border-color:rgba(236,72,153,.2);background:rgba(236,72,153,.03);">
+      <div class="reto-header">
+        <div class="reto-num" style="background:rgba(236,72,153,.15);color:#ec4899;">11</div>
+        <div>
+          <div class="reto-title" style="color:#ec4899;">Crear / Editar</div>
+          <span class="reto-route" style="color:#ec4899;border-color:rgba(236,72,153,.2);background:rgba(236,72,153,.05);">/merchants/new · /edit/:id</span>
+        </div>
+      </div>
+      <ul class="reto-features">
+        <li>Campos: Nombre*, Correo, Teléfono, Municipio*</li>
+        <li>Fecha de registro* (datepicker, no futura)</li>
+        <li>Estado* (selector Activo/Inactivo)</li>
+        <li>¿Posee establecimientos? (checkbox)</li>
+        <li>Validador personalizado fecha futura</li>
+        <li>Correo y teléfono opcionales</li>
+        <li>Footer con totalIngresos y cantidadEmpleados (edit)</li>
+        <li>Snackbar de confirmación / error</li>
+        <li>Selector municipio dinámico desde API</li>
+        <li>24 pruebas unitarias con Jest</li>
+      </ul>
+      <span class="status-badge" style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#10b981;">✅ Completado</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SECCIÓN 2: TESTS ── -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon">🧪</span>
+    <span class="text">Pruebas Unitarias — Jest</span>
+    <span class="badge-sm" style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#10b981;">23 PASSED · 24 TOTAL</span>
+  </div>
+
+  <div class="test-grid">
+
+    <div class="test-card">
+      <div class="test-card-head">🔧 Inicialización</div>
+      <div class="test-case">Crea el componente</div>
+      <div class="test-case">Modo creación sin id</div>
+      <div class="test-case">Modo edición con id</div>
+      <div class="test-case">Carga municipios al iniciar</div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-card-head">✅ Validaciones</div>
+      <div class="test-case">Formulario vacío inválido</div>
+      <div class="test-case">Nombre requerido</div>
+      <div class="test-case">Nombre min 3 chars</div>
+      <div class="test-case">Email formato inválido</div>
+      <div class="test-case">Email formato válido</div>
+      <div class="test-case">Fecha futura rechazada</div>
+      <div class="test-case">Fecha hoy aceptada</div>
+      <div class="test-case">Municipio requerido</div>
+      <div class="test-case">Formulario válido completo</div>
+      <div class="test-case">Sin correo/tel (opcionales)</div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-card-head">✏️ Modo Edición</div>
+      <div class="test-case">Llama getComercianteById</div>
+      <div class="test-case">Pobla el formulario</div>
+      <div class="test-case">Carga totalIngresos</div>
+      <div class="test-case">Llama updateComerciante</div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-card-head">➕ Modo Creación</div>
+      <div class="test-case">Llama createComerciante</div>
+      <div class="test-case">Bloquea si inválido</div>
+    </div>
+
+    <div class="test-card">
+      <div class="test-card-head">💬 getFieldError</div>
+      <div class="test-case">Mensaje requerido</div>
+      <div class="test-case">Mensaje email inválido</div>
+      <div class="test-case">Vacío si campo válido</div>
+      <div class="test-case">Vacío si no tocado</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SECCIÓN 3: ARQUITECTURA ── -->
 <div class="section">
   <div class="section-title">
     <span class="icon">🏗️</span>
-    <span class="text">Arquitectura — Clean Architecture Frontend</span>
-    <span class="badge-sm" style="background:rgba(221,0,49,.08);border:1px solid rgba(221,0,49,.2);color:#ff6b8a;">ANGULAR 18</span>
+    <span class="text">Arquitectura — Clean Architecture + NgRx</span>
+    <span class="badge-sm" style="background:rgba(221,0,49,.08);border:1px solid rgba(221,0,49,.2);color:#ff6b8a;">Angular 18 · Standalone</span>
   </div>
 
   <div class="arch-grid">
 
-    <div class="arch-layer" style="border-color:rgba(0,212,255,.3);">
+    <div class="arch-layer" style="border-color:rgba(0,212,255,.2);">
       <div class="arch-layer-head" style="background:rgba(0,212,255,.08);color:#00d4ff;">
-        <span>🧩</span> Core — Servicios Singleton, Guards e Interceptores
+        <span>🌐</span> Core — Guards · Interceptors · Services
       </div>
       <div class="arch-layer-body">
-        Capa transversal de la aplicación. Contiene todo lo que debe instanciarse una sola vez.
+        Capa singleton con servicios globales, seguridad y comunicación HTTP.
         <div class="files">
-          <span class="file-chip" style="border-color:rgba(0,212,255,.3);color:#00d4ff;">auth.guard.ts</span>
-          <span class="file-chip" style="border-color:rgba(0,212,255,.3);color:#00d4ff;">auth.interceptor.ts</span>
-          <span class="file-chip" style="border-color:rgba(0,212,255,.3);color:#00d4ff;">auth.service.ts</span>
-          <span class="file-chip" style="border-color:rgba(0,212,255,.3);color:#00d4ff;">merchants.service.ts</span>
+          <span class="file-chip" style="color:#00d4ff;border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.05);">auth.guard.ts</span>
+          <span class="file-chip" style="color:#00d4ff;border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.05);">auth.interceptor.ts</span>
+          <span class="file-chip" style="color:#00d4ff;border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.05);">auth.service.ts</span>
+          <span class="file-chip" style="color:#00d4ff;border-color:rgba(0,212,255,.2);background:rgba(0,212,255,.05);">merchants.service.ts</span>
         </div>
       </div>
     </div>
 
-    <div class="arch-layer" style="border-color:rgba(124,58,237,.3);">
+    <div class="arch-layer" style="border-color:rgba(124,58,237,.2);">
       <div class="arch-layer-head" style="background:rgba(124,58,237,.08);color:#a78bfa;">
-        <span>🗄️</span> Store — Estado Global NgRx
+        <span>🗃️</span> Store — NgRx State Management
       </div>
       <div class="arch-layer-body">
-        Gestión centralizada del estado con NgRx Store + Effects. JWT en memoria, nunca en localStorage.
+        Estado global centralizado con acciones, reducers, efectos y selectores.
         <div class="files">
-          <span class="file-chip" style="border-color:rgba(124,58,237,.3);color:#a78bfa;">auth.actions.ts</span>
-          <span class="file-chip" style="border-color:rgba(124,58,237,.3);color:#a78bfa;">auth.reducer.ts</span>
-          <span class="file-chip" style="border-color:rgba(124,58,237,.3);color:#a78bfa;">auth.effects.ts</span>
-          <span class="file-chip" style="border-color:rgba(124,58,237,.3);color:#a78bfa;">auth.selectors.ts</span>
+          <span class="file-chip" style="color:#a78bfa;border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.05);">auth.state.ts</span>
+          <span class="file-chip" style="color:#a78bfa;border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.05);">auth.actions.ts</span>
+          <span class="file-chip" style="color:#a78bfa;border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.05);">auth.reducer.ts</span>
+          <span class="file-chip" style="color:#a78bfa;border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.05);">auth.effects.ts</span>
+          <span class="file-chip" style="color:#a78bfa;border-color:rgba(124,58,237,.2);background:rgba(124,58,237,.05);">auth.selectors.ts</span>
         </div>
       </div>
     </div>
 
-    <div class="arch-layer" style="border-color:rgba(16,185,129,.3);">
+    <div class="arch-layer" style="border-color:rgba(16,185,129,.2);">
       <div class="arch-layer-head" style="background:rgba(16,185,129,.08);color:#10b981;">
-        <span>✨</span> Features — Módulos de Funcionalidad
+        <span>📄</span> Features — Páginas por Reto
       </div>
       <div class="arch-layer-body">
-        Módulos lazy-loaded organizados por dominio de negocio.
+        Componentes standalone organizados por funcionalidad. Cada reto es una página independiente.
         <div class="files">
-          <span class="file-chip" style="border-color:rgba(16,185,129,.3);color:#10b981;">features/auth/</span>
-          <span class="file-chip" style="border-color:rgba(16,185,129,.3);color:#10b981;">features/merchants/</span>
-          <span class="file-chip" style="border-color:rgba(16,185,129,.3);color:#10b981;">login.component.ts</span>
-          <span class="file-chip" style="border-color:rgba(16,185,129,.3);color:#10b981;">home.component.ts</span>
-          <span class="file-chip" style="border-color:rgba(16,185,129,.3);color:#10b981;">merchant-form.component.ts</span>
+          <span class="file-chip" style="color:#10b981;border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.05);">login.component.ts</span>
+          <span class="file-chip" style="color:#10b981;border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.05);">home.component.ts</span>
+          <span class="file-chip" style="color:#10b981;border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.05);">form.component.ts</span>
+          <span class="file-chip" style="color:#10b981;border-color:rgba(16,185,129,.2);background:rgba(16,185,129,.05);">form.component.spec.ts</span>
         </div>
       </div>
     </div>
 
-    <div class="arch-layer" style="border-color:rgba(245,158,11,.3);">
+    <div class="arch-layer" style="border-color:rgba(245,158,11,.2);">
       <div class="arch-layer-head" style="background:rgba(245,158,11,.08);color:#f59e0b;">
-        <span>🔁</span> Shared — Componentes Reutilizables
+        <span>⚙️</span> Configuración Global
       </div>
       <div class="arch-layer-body">
-        Componentes, pipes y directivas compartidas entre features.
+        Rutas protegidas con guards, providers NgRx, interceptores HTTP y budgets de producción ajustados.
         <div class="files">
-          <span class="file-chip" style="border-color:rgba(245,158,11,.3);color:#f59e0b;">header.component.ts</span>
-          <span class="file-chip" style="border-color:rgba(245,158,11,.3);color:#f59e0b;">shared.module.ts</span>
+          <span class="file-chip" style="color:#f59e0b;border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.05);">app.config.ts</span>
+          <span class="file-chip" style="color:#f59e0b;border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.05);">app.routes.ts</span>
+          <span class="file-chip" style="color:#f59e0b;border-color:rgba(245,158,11,.2);background:rgba(245,158,11,.05);">angular.json</span>
         </div>
       </div>
     </div>
@@ -363,62 +556,7 @@
   </div>
 </div>
 
-<!-- SECCIÓN 2 — RUTAS -->
-<div class="section">
-  <div class="section-title">
-    <span class="icon">🗺️</span>
-    <span class="text">Rutas de la Aplicación</span>
-  </div>
-
-  <table class="endpoint-table">
-    <thead>
-      <tr>
-        <th>Reto</th>
-        <th>Página</th>
-        <th>Ruta</th>
-        <th>Auth</th>
-        <th>Rol</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="color:#a78bfa;">09</td>
-        <td>Login</td>
-        <td><span class="route-path">/login</span></td>
-        <td><span class="badge-auth no">❌ Público</span></td>
-        <td style="color:var(--muted);">—</td>
-        <td class="status-wip">🚧 En progreso</td>
-      </tr>
-      <tr>
-        <td style="color:#a78bfa;">10</td>
-        <td>Home — Lista Comerciantes</td>
-        <td><span class="route-path">/merchants</span></td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
-        <td style="color:var(--muted);">Todos</td>
-        <td class="status-wip">🚧 En progreso</td>
-      </tr>
-      <tr>
-        <td style="color:#a78bfa;">11</td>
-        <td>Formulario — Crear</td>
-        <td><span class="route-path">/merchants/new</span></td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
-        <td style="color:var(--muted);">Todos</td>
-        <td class="status-wip">🚧 En progreso</td>
-      </tr>
-      <tr>
-        <td style="color:#a78bfa;">11</td>
-        <td>Formulario — Editar</td>
-        <td><span class="route-path">/merchants/:id</span></td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
-        <td style="color:var(--muted);">Todos</td>
-        <td class="status-wip">🚧 En progreso</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- SECCIÓN 3 — ENDPOINTS CONSUMIDOS -->
+<!-- ── SECCIÓN 4: ENDPOINTS ── -->
 <div class="section">
   <div class="section-title">
     <span class="icon">🔗</span>
@@ -429,11 +567,7 @@
   <table class="endpoint-table">
     <thead>
       <tr>
-        <th>Método</th>
-        <th>Endpoint</th>
-        <th>Descripción</th>
-        <th>Auth</th>
-        <th>Rol</th>
+        <th>Método</th><th>Endpoint</th><th>Descripción</th><th>Auth</th><th>Rol</th>
       </tr>
     </thead>
     <tbody>
@@ -441,70 +575,70 @@
         <td><span class="method post">POST</span></td>
         <td><span class="route-path">/api/auth/login</span></td>
         <td>Autenticación — retorna JWT</td>
-        <td><span class="badge-auth no">❌ Público</span></td>
+        <td><span class="badge-auth auth-no">❌ Público</span></td>
         <td style="color:var(--muted);">—</td>
       </tr>
       <tr>
         <td><span class="method get">GET</span></td>
         <td><span class="route-path">/api/municipios</span></td>
-        <td>Lista de municipios para selector</td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
+        <td>Lista de municipios — selector formulario</td>
+        <td><span class="badge-auth auth-yes">✅ JWT</span></td>
         <td style="color:var(--muted);">Todos</td>
       </tr>
       <tr>
         <td><span class="method get">GET</span></td>
-        <td><span class="route-path">/api/comerciantes</span></td>
-        <td>Lista paginada de comerciantes</td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
+        <td><span class="route-path">/api/reporte/comerciantes</span></td>
+        <td>Lista con cantidadEstablecimientos, totalIngresos y cantidadEmpleados</td>
+        <td><span class="badge-auth auth-yes">✅ JWT</span></td>
         <td style="color:var(--muted);">Todos</td>
       </tr>
       <tr>
         <td><span class="method get">GET</span></td>
         <td><span class="route-path">/api/comerciantes/{id}</span></td>
-        <td>Detalle de un comerciante</td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
+        <td>Detalle de un comerciante — modo edición</td>
+        <td><span class="badge-auth auth-yes">✅ JWT</span></td>
         <td style="color:var(--muted);">Todos</td>
       </tr>
       <tr>
         <td><span class="method post">POST</span></td>
         <td><span class="route-path">/api/comerciantes</span></td>
         <td>Crear nuevo comerciante</td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
+        <td><span class="badge-auth auth-yes">✅ JWT</span></td>
         <td style="color:var(--muted);">Todos</td>
       </tr>
       <tr>
         <td><span class="method put">PUT</span></td>
         <td><span class="route-path">/api/comerciantes/{id}</span></td>
-        <td>Actualizar comerciante</td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
+        <td>Actualizar comerciante existente</td>
+        <td><span class="badge-auth auth-yes">✅ JWT</span></td>
         <td style="color:var(--muted);">Todos</td>
       </tr>
       <tr>
         <td><span class="method delete">DELETE</span></td>
         <td><span class="route-path">/api/comerciantes/{id}</span></td>
         <td>Eliminar comerciante</td>
-        <td><span class="badge-auth admin">🔐 JWT</span></td>
+        <td><span class="badge-auth auth-admin">🔐 JWT</span></td>
         <td style="color:#ef4444;">Administrador</td>
       </tr>
       <tr>
         <td><span class="method patch">PATCH</span></td>
         <td><span class="route-path">/api/comerciantes/{id}/estado</span></td>
         <td>Activar / Inactivar comerciante</td>
-        <td><span class="badge-auth yes">✅ JWT</span></td>
+        <td><span class="badge-auth auth-yes">✅ JWT</span></td>
         <td style="color:var(--muted);">Todos</td>
       </tr>
       <tr>
         <td><span class="method get">GET</span></td>
         <td><span class="route-path">/api/reporte/comerciantes/csv</span></td>
-        <td>Descargar reporte CSV</td>
-        <td><span class="badge-auth admin">🔐 JWT</span></td>
+        <td>Descargar reporte CSV global</td>
+        <td><span class="badge-auth auth-admin">🔐 JWT</span></td>
         <td style="color:#ef4444;">Administrador</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<!-- SECCIÓN 4 — SEGURIDAD OWASP -->
+<!-- ── SECCIÓN 5: SEGURIDAD ── -->
 <div class="section">
   <div class="section-title">
     <span class="icon">🔐</span>
@@ -513,53 +647,34 @@
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
-
     <div class="detail-box" style="border-left-color:#00d4ff;border-color:rgba(0,212,255,.2);">
       <div class="db-label" style="color:#00d4ff;">🔑 JWT en Memoria</div>
-      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">
-        El token JWT se almacena en el <strong style="color:#e2e8f0;">estado NgRx</strong> en memoria, nunca en <code>localStorage</code> ni <code>sessionStorage</code>. Protege contra ataques XSS que roben el token.
-      </div>
+      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">Token JWT almacenado en <strong style="color:#e2e8f0;">NgRx Store</strong> en memoria. Nunca en <code>localStorage</code> ni <code>sessionStorage</code>. Protege contra ataques XSS.</div>
     </div>
-
     <div class="detail-box" style="border-left-color:#10b981;border-color:rgba(16,185,129,.2);">
       <div class="db-label" style="color:#10b981;">🛡️ Auth Interceptor</div>
-      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">
-        El <code>auth.interceptor.ts</code> agrega automáticamente el header <code>Authorization: Bearer TOKEN</code> en cada request HTTP. Maneja errores 401 redirigiendo al login.
-      </div>
+      <div style="font-size:11px;color:#94a3b8;line-height:1.9;"><code>auth.interceptor.ts</code> agrega automáticamente el header <code>Authorization: Bearer TOKEN</code> en cada request HTTP protegido.</div>
     </div>
-
     <div class="detail-box" style="border-left-color:#a78bfa;border-color:rgba(124,58,237,.2);">
       <div class="db-label" style="color:#a78bfa;">🚧 Route Guards</div>
-      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">
-        El <code>auth.guard.ts</code> protege todas las rutas privadas. Si el usuario no tiene sesión activa, es redirigido automáticamente a <code>/login</code>.
-      </div>
+      <div style="font-size:11px;color:#94a3b8;line-height:1.9;"><code>auth.guard.ts</code> protege todas las rutas privadas. Sin sesión activa el usuario es redirigido automáticamente a <code>/login</code>.</div>
     </div>
-
     <div class="detail-box" style="border-left-color:#f59e0b;border-color:rgba(245,158,11,.2);">
       <div class="db-label" style="color:#f59e0b;">🧹 Sanitización de Inputs</div>
-      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">
-        Angular sanitiza por defecto todos los valores interpolados en templates, protegiendo contra <strong style="color:#e2e8f0;">XSS</strong>. Los formularios usan Reactive Forms con validadores estrictos.
-      </div>
+      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">Angular sanitiza todos los valores interpolados (protección XSS). Reactive Forms con validadores estrictos incluyendo validador personalizado de fecha futura.</div>
     </div>
-
     <div class="detail-box" style="border-left-color:#ef4444;border-color:rgba(239,68,68,.2);">
       <div class="db-label" style="color:#ef4444;">👤 Control por Rol</div>
-      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">
-        Las acciones de <strong style="color:#e2e8f0;">Eliminar</strong> y <strong style="color:#e2e8f0;">Descargar CSV</strong> solo son visibles para el rol <code>Administrador</code>. El rol se lee del token JWT y se guarda en NgRx.
-      </div>
+      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">Acciones <strong style="color:#e2e8f0;">Eliminar</strong> y <strong style="color:#e2e8f0;">Descargar CSV</strong> solo visibles para rol <code>Administrador</code>. Rol obtenido del JWT y persistido en NgRx.</div>
     </div>
-
     <div class="detail-box" style="border-left-color:#ec4899;border-color:rgba(236,72,153,.2);">
-      <div class="db-label" style="color:#ec4899;">🔒 HTTPS en Producción</div>
-      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">
-        El build de producción está configurado para operar sobre <strong style="color:#e2e8f0;">HTTPS</strong>. Las credenciales nunca viajan en texto plano ni se exponen en la URL.
-      </div>
+      <div class="db-label" style="color:#ec4899;">🔒 Build de Producción</div>
+      <div style="font-size:11px;color:#94a3b8;line-height:1.9;">Build optimizado con <code>ng build --configuration production</code>. Código minificado, tree-shaking aplicado. Compilado disponible en <code>dist/comerciantes-app/</code>.</div>
     </div>
-
   </div>
 </div>
 
-<!-- SECCIÓN 5 — STACK TECNOLÓGICO -->
+<!-- ── SECCIÓN 7: STACK ── -->
 <div class="section">
   <div class="section-title">
     <span class="icon">📦</span>
@@ -567,68 +682,58 @@
   </div>
 
   <div class="tech-grid">
-
     <div class="tech-card" style="border-color:rgba(221,0,49,.25);background:rgba(221,0,49,.04);">
       <div class="tc-label" style="color:#ff6b8a;">FRAMEWORK</div>
       <div class="tc-name" style="color:#dd0031;">Angular</div>
       <div style="color:#94a3b8;font-size:11px;">Standalone Components</div>
       <div class="tc-version">v18.2.11</div>
     </div>
-
     <div class="tech-card" style="border-color:rgba(124,58,237,.25);background:rgba(124,58,237,.04);">
       <div class="tc-label" style="color:#a78bfa;">ESTADO</div>
       <div class="tc-name" style="color:#a78bfa;">NgRx</div>
       <div style="color:#94a3b8;font-size:11px;">Store + Effects</div>
       <div class="tc-version">v18.x</div>
     </div>
-
     <div class="tech-card" style="border-color:rgba(0,212,255,.25);background:rgba(0,212,255,.04);">
       <div class="tc-label" style="color:#00d4ff;">UI</div>
       <div class="tc-name" style="color:#00d4ff;">Angular Material</div>
       <div style="color:#94a3b8;font-size:11px;">Tema Azure/Blue</div>
-      <div class="tc-version">v18.2.14</div>
+      <div class="tc-version">v18.x</div>
     </div>
-
     <div class="tech-card" style="border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.04);">
       <div class="tc-label" style="color:#10b981;">LENGUAJE</div>
       <div class="tc-name" style="color:#10b981;">TypeScript</div>
       <div style="color:#94a3b8;font-size:11px;">Tipado estático</div>
       <div class="tc-version">v5.x</div>
     </div>
-
     <div class="tech-card" style="border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.04);">
       <div class="tc-label" style="color:#f59e0b;">ESTILOS</div>
       <div class="tc-name" style="color:#f59e0b;">SCSS</div>
       <div style="color:#94a3b8;font-size:11px;">CSS Preprocesado</div>
       <div class="tc-version">—</div>
     </div>
-
     <div class="tech-card" style="border-color:rgba(239,68,68,.25);background:rgba(239,68,68,.04);">
       <div class="tc-label" style="color:#ef4444;">TESTING</div>
       <div class="tc-name" style="color:#ef4444;">Jest</div>
-      <div style="color:#94a3b8;font-size:11px;">Pruebas unitarias</div>
+      <div style="color:#94a3b8;font-size:11px;">23/24 pruebas ✅</div>
       <div class="tc-version">—</div>
     </div>
-
     <div class="tech-card" style="border-color:rgba(100,116,139,.25);background:rgba(100,116,139,.04);">
       <div class="tc-label" style="color:#94a3b8;">RUNTIME</div>
       <div class="tc-name" style="color:#94a3b8;">Node.js</div>
       <div style="color:#94a3b8;font-size:11px;">Entorno de ejecución</div>
       <div class="tc-version">v22.18.0</div>
     </div>
-
     <div class="tech-card" style="border-color:rgba(236,72,153,.25);background:rgba(236,72,153,.04);">
       <div class="tc-label" style="color:#ec4899;">GESTOR</div>
       <div class="tc-name" style="color:#ec4899;">npm</div>
       <div style="color:#94a3b8;font-size:11px;">Package manager</div>
       <div class="tc-version">v11.8.0</div>
     </div>
-
   </div>
 </div>
 
 <div class="spacer"></div>
-
 <div style="text-align:center;padding:20px;position:relative;z-index:10;color:var(--muted);font-size:11px;border-top:1px solid var(--border);">
   Prueba Técnica De Uso Exclusivo De OL Software &amp; Development
 </div>
