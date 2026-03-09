@@ -1,1 +1,164 @@
-<p>home works!</p>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="logo-ol.png" alt="OL Software" class="logo">
+  </div>
+
+ <div class="navbar-center">
+  <a class="nav-link active" routerLink="/merchants">
+    <span class="nav-number">1</span>
+    Lista Comerciantes
+  </a>
+  <div class="nav-divider"></div>
+  <a class="nav-link" routerLink="/merchants/new">
+    <span class="nav-number">2</span>
+    Crear Comerciante
+  </a>
+</div>
+
+  <div class="navbar-right">
+
+    <span class="benefits">
+      <mat-icon>thumb_up</mat-icon>
+      Beneficios por renovar
+    </span>
+
+    <div class="user-info" *ngIf="user$ | async as user">
+      <mat-icon>account_circle</mat-icon>
+      <div class="user-details">
+        <span class="user-welcome">Bienvenido!</span>
+        <span class="user-name">{{ user.nombre }}</span>
+        <span class="user-role">{{ user.rol }}</span>
+      </div>
+    </div>
+    <button mat-icon-button (click)="logout()" matTooltip="Cerrar sesión">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</nav>
+
+<!-- CONTENIDO -->
+<div class="home-container">
+
+  <div class="page-title-section">
+      <h2 class="page-main-title">Lista Comerciantes Creados</h2>
+    </div>
+
+  <!-- HEADER -->
+  <div class="page-header">
+       
+    <div class="header-actions" *ngIf="user$ | async as user">
+
+       <button mat-raised-button class="btn-nuevo" routerLink="/merchants/new">
+        <mat-icon>add</mat-icon>
+        Nuevo Comerciante
+      </button>
+
+      <button mat-raised-button class="btn-csv"
+              *ngIf="user.rol === 'Administrador'"
+              (click)="descargarCSV()">
+        <mat-icon>download</mat-icon>
+        Descargar CSV
+      </button>     
+
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="48"></mat-spinner>
+    <p>Cargando comerciantes...</p>
+  </div>
+
+  <!-- ERROR -->
+  <div class="error-message" *ngIf="error && !loading">
+    <mat-icon>error_outline</mat-icon>
+    {{ error }}
+  </div>
+
+  <!-- TABLA -->
+  <div class="table-container" *ngIf="!loading && !error">
+    <table mat-table [dataSource]="comerciantesPaginados" class="merchants-table">
+
+      <ng-container matColumnDef="nombreRazonSocial">
+        <th mat-header-cell *matHeaderCellDef>Razón Social</th>
+        <td mat-cell *matCellDef="let c">{{ c.nombreRazonSocial }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+      <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+      <td mat-cell *matCellDef="let c">{{ c.telefono || '—' }}</td>
+    </ng-container>
+
+      <ng-container matColumnDef="correoElectronico">
+        <th mat-header-cell *matHeaderCellDef>Correo Electrónico</th>
+        <td mat-cell *matCellDef="let c">{{ c.correoElectronico }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fechaRegistro">
+        <th mat-header-cell *matHeaderCellDef>Fecha Registro</th>
+        <td mat-cell *matCellDef="let c">{{ c.fechaRegistro | date:'yyyy-MM-dd' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="cantidadEstablecimientos">
+      <th mat-header-cell *matHeaderCellDef>No. Establecimientos</th>
+      <td mat-cell *matCellDef="let c" class="text-center">
+        {{ c.cantidadEstablecimientos ?? '—' }}
+      </td>
+    </ng-container>  
+     
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let c">
+          <span class="estado-chip" [ngClass]="c.estado === 'Activo' ? 'activo' : 'inactivo'">
+            {{ c.estado }}
+          </span>
+        </td>
+      </ng-container>
+
+ <ng-container matColumnDef="acciones">
+  <th mat-header-cell *matHeaderCellDef>Acciones</th>
+  <td mat-cell *matCellDef="let c">
+    <div class="acciones" *ngIf="user$ | async as user">
+      <button mat-icon-button matTooltip="Editar"
+              class="btn-edit"
+              [routerLink]="['/merchants/edit', c.comercianteId]">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button
+              [matTooltip]="c.estado === 'Activo' ? 'Inactivar' : 'Activar'"
+              [class]="c.estado === 'Activo' ? 'btn-inactivar' : 'btn-activar'"
+              (click)="toggleEstado(c)">
+        <mat-icon>{{ c.estado === 'Activo' ? 'cancel' : 'check_circle' }}</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Eliminar"
+              class="btn-delete"
+              *ngIf="user.rol === 'Administrador'"
+              (click)="eliminar(c.comercianteId)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="Descargar"
+              class="btn-download"
+              *ngIf="user.rol === 'Administrador'"
+              (click)="descargarIndividual(c.comercianteId)">
+        <mat-icon>download</mat-icon>
+      </button>
+    </div>
+  </td>
+</ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator
+      [length]="comerciantes.length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChange($event)"
+      showFirstLastButtons>
+    </mat-paginator>
+  </div>
+
+</div>

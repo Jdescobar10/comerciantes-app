@@ -17,14 +17,18 @@ export class AuthEffects {
       ofType(loadAuth),
       switchMap(({ email, password }) =>
         this.authService.login(email, password).pipe(
-          map((response) => loadAuthSuccess({
-            user: {
-              nombre: response.data.nombreUsuario,
-              correo: email,
-              rol: response.data.rol
-            },
-            token: response.token
-          })),
+      
+  map((response) => {
+    const token = response.data.token;
+    const user = {
+      nombre: response.data.nombreUsuario,
+      correo: email,
+      rol: response.data.rol
+    };
+    sessionStorage.setItem('token', token);
+    return loadAuthSuccess({ user, token });
+  }),
+
           catchError((error) => of(loadAuthFailure({
             error: error.error?.message || 'Credenciales incorrectas'
           })))
@@ -44,7 +48,10 @@ export class AuthEffects {
   logout$ = createEffect(() =>
     this.actions$.pipe(
       ofType(logout),
-      tap(() => this.router.navigate(['/login']))
+      tap(() => {
+        sessionStorage.removeItem('token');
+        this.router.navigate(['/login']);
+      })
     ),
     { dispatch: false }
   );

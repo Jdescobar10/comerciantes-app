@@ -13,9 +13,9 @@ export interface AuthState {
 }
 
 export const initialAuthState: AuthState = {
-  isAuthenticated: false,
+  isAuthenticated: !!sessionStorage.getItem('token'),
   user: null,
-  token: null,
+  token: sessionStorage.getItem('token'),
   error: null,
   loading: false
 };

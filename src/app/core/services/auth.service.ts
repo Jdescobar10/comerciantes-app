@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 export interface LoginResponse {
   success: boolean;
   message: string;
-  token: string;
+  errors: null;
   data: {
+    token: string;
     nombreUsuario: string;
     rol: string;
   };
-  errors: null;
 }
 
 @Injectable({
